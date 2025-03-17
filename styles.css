@@ -25,11 +25,22 @@ html, body {
     background-color: black;
 }
 
+/* Standard desktop styling */
 #background-video {
     width: 100%;
     height: 100%;
     object-fit: contain;
     display: block;
+}
+
+/* Mobile and tablet adjustments */
+@media (max-width: 1024px) {
+    #background-video {
+        object-fit: cover; /* Fill the screen completely */
+        min-width: 100%;
+        min-height: 100%;
+        transform: scale(1.1); /* Slightly zoom out to show more of the video */
+    }
 }
 
 .content {
@@ -43,6 +54,7 @@ html, body {
     color: white;
     text-align: center;
     z-index: 2;
+    padding: 0 20px; /* Add horizontal padding for small screens */
 }
 
 h1 {

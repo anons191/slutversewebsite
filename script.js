@@ -11,6 +11,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { once: true });
     });
     
+    // Custom positioning for mobile to ensure video fills screen properly
+    const handleMobileVideo = () => {
+        if (window.innerWidth <= 1024) {
+            // For mobile devices, we'll use CSS transform scale, but also need to
+            // ensure the video is centered properly
+            video.style.width = '100%';
+            video.style.height = '100%';
+            video.style.objectFit = 'cover';
+            // Force the video to be centered by using transform-origin
+            video.style.transformOrigin = 'center center';
+            
+            // No need for margin adjustments with the scale approach
+            video.style.marginTop = '0';
+            video.style.marginLeft = '0';
+        } else {
+            // Reset for desktop
+            video.style.transform = 'none';
+            video.style.objectFit = 'contain';
+            video.style.marginTop = '0';
+            video.style.marginLeft = '0';
+        }
+    };
+    
+    // Apply video adjustments when video metadata is loaded
+    video.addEventListener('loadedmetadata', handleMobileVideo);
+    
+    // Update on window resize
+    window.addEventListener('resize', handleMobileVideo);
+    
     // Simple click event for the enter button
     enterButton.addEventListener('click', () => {
         // Fade out current content
