@@ -84,10 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.content').style.opacity = '0';
         document.querySelector('.content').style.transition = 'opacity 1s ease';
         
-        // Could redirect to another page or show new content
+        // Redirect to the new navigation page
         setTimeout(() => {
-            alert('Autonomy isn\'t given - it\'s taken. The slutverse is coming. Stay sharp. Stay curious. Stay free.');
-            document.querySelector('.content').style.opacity = '1';
+            window.location.href = 'slutverse-navigation.html';
         }, 1000);
     });
     

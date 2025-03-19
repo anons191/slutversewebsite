@@ -55,6 +55,14 @@ html, body {
     text-align: center;
     z-index: 2;
     padding: 0 20px; /* Add horizontal padding for small screens */
+    overflow-y: auto; /* Allow scrolling if content is taller than viewport */
+}
+
+@media (max-width: 576px) {
+    .content {
+        justify-content: flex-start;
+        padding-top: 60px;
+    }
 }
 
 h1 {
@@ -113,7 +121,7 @@ p {
 }
 
 .sound-button {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
     padding: 8px 16px;
@@ -124,6 +132,7 @@ p {
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 10;
 }
 
 .sound-button:hover {

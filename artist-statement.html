@@ -96,6 +96,7 @@
             overflow-y: auto;
             justify-content: flex-start;
             padding-top: 80px;
+            margin-bottom: 60px; /* Add space at bottom to prevent content from being hidden behind sound button */
         }
 
         @media (max-width: 768px) {
@@ -110,6 +111,14 @@
             .statement-list li {
                 font-size: 1.1rem;
             }
+        }
+        
+        /* Override sound button styling for this page */
+        .sound-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
         }
     </style>
 </head>
@@ -162,9 +171,9 @@
             
             <a href="index.html" class="return-button">Return Home</a>
         </div>
-        
-        <button id="sound-toggle" class="sound-button">🔇 Sound Off</button>
     </div>
+    
+    <button id="sound-toggle" class="sound-button">🔇 Sound Off</button>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

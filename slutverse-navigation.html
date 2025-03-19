@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Slutverse Navigation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles specific to navigation page */
+        .nav-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 992px) {
+            .nav-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                width: 95%;
+                margin-bottom: 70px; /* Add space at bottom for sound button */
+            }
+        }
+        
+        @media (max-height: 700px) and (max-width: 576px) {
+            body {
+                overflow-y: auto !important;
+            }
+            
+            html, body {
+                overflow: auto;
+                height: auto;
+            }
+            
+            .content {
+                height: auto;
+                min-height: 100vh;
+                padding-bottom: 80px;
+            }
+        }
+        
+        .nav-item {
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-10px);
+            border-color: white;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .nav-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.2;
+            min-height: 3.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-title {
+                font-size: 1.2rem;
+                min-height: 2.9rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-title {
+                font-size: 1.1rem;
+                min-height: 2.4rem;
+            }
+            
+            /* Special handling for the longest title */
+            .nav-item:nth-child(3) .nav-title {
+                font-size: 1rem;
+            }
+            
+            .nav-desc {
+                font-size: 0.9rem;
+            }
+            
+            .nav-item {
+                padding: 20px 15px;
+            }
+            
+            .navigation-header h1 {
+                font-size: 2rem;
+            }
+            
+            .navigation-header p {
+                font-size: 1rem;
+            }
+        }
+        
+        .nav-desc {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .navigation-header {
+            margin-bottom: 50px;
+        }
+        
+        @media (max-width: 576px) {
+            .navigation-header {
+                margin-bottom: 30px;
+            }
+            
+            .nav-icon {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .back-button {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .sound-button {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: 1px solid white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Entrance animation */
+        .nav-item {
+            opacity: 0;
+            animation: fadeInUp 0.6s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Staggered animation delay */
+        .nav-item:nth-child(1) { animation-delay: 0.1s; }
+        .nav-item:nth-child(2) { animation-delay: 0.2s; }
+        .nav-item:nth-child(3) { animation-delay: 0.3s; }
+        .nav-item:nth-child(4) { animation-delay: 0.4s; }
+        .nav-item:nth-child(5) { animation-delay: 0.5s; }
+        .nav-item:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* External link styling */
+        .external-link-icon {
+            font-size: 0.9em;
+            opacity: 0.8;
+            display: inline-block;
+            margin-left: 3px;
+        }
+        
+        .nav-item:hover .external-link-icon {
+            opacity: 1;
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        /* Special styling for active links */
+        .nav-item:first-child, .nav-item:nth-child(2), .nav-item:nth-child(3), .nav-item:nth-child(4), .nav-item:nth-child(5), .nav-item:last-child {
+            border-color: rgba(255, 215, 0, 0.5); /* Gold border */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .nav-item:first-child:hover, .nav-item:nth-child(2):hover, .nav-item:nth-child(3):hover, .nav-item:nth-child(4):hover, .nav-item:nth-child(5):hover, .nav-item:last-child:hover {
+            border-color: rgba(255, 215, 0, 0.9);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Standard availability message */
+        .nav-item:first-child .nav-desc::after, .nav-item:nth-child(3) .nav-desc::after, .nav-item:nth-child(4) .nav-desc::after, .nav-item:nth-child(5) .nav-desc::after, .nav-item:last-child .nav-desc::after {
+            content: '(Available Now)';
+            display: block;
+            margin-top: 8px;
+            font-weight: bold;
+            color: rgba(255, 215, 0, 0.9);
+        }
+        
+        /* Special message for CryptoSluts */
+        .nav-item:nth-child(2) .nav-desc::after {
+            content: '(Make an Offer)';
+            display: block;
+            margin-top: 8px;
+            font-weight: bold;
+            color: rgba(255, 215, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <!-- Background music player -->
+        <audio id="background-music" loop>
+            <source src="88N8 Digital Gold (Prod. Pyrodagod) Directed by Keem Ibarra.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+        <video autoplay muted loop playsinline id="background-video">
+            <source src="Btcroom .mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <a href="index.html" class="back-button">← Back</a>
+    
+    <div class="content">
+        <div class="navigation-header">
+            <h1>Navigate the Slutverse</h1>
+            <p>Select a realm to explore</p>
+        </div>
+        
+        <div class="nav-container">
+            <div class="nav-item">
+                <div class="nav-icon">🍑</div>
+                <div class="nav-title">CryptoButts<span class="external-link-icon"> ↗</span></div>
+                <div class="nav-desc">Cheeky crypto art that celebrates the beauty of the posterior</div>
+            </div>
+            
+            <div class="nav-item">
+                <div class="nav-icon">👯</div>
+                <div class="nav-title">CryptoSluts<span class="external-link-icon"> ↗</span></div>
+                <div class="nav-desc">Empowered digital personas that redefine beauty and value</div>
+            </div>
+            
+            <div class="nav-item">
+                <div class="nav-icon">💃</div>
+                <div class="nav-title">Good Booty<span class="external-link-icon"> ↗</span></div>
+                <div class="nav-desc">Shake what the blockchain gave you with booty-ful digital assets</div>
+            </div>
+            
+            <div class="nav-item">
+                <div class="nav-icon">🧐</div>
+                <div class="nav-title">Why Were They There<span class="external-link-icon"> ↗</span></div>
+                <div class="nav-desc">Questioning existence through blockchain-based art</div>
+            </div>
+            
+            <div class="nav-item">
+                <div class="nav-icon">🧘‍♀️</div>
+                <div class="nav-title">Sensual Chakra<span class="external-link-icon"> ↗</span></div>
+                <div class="nav-desc">Balance your energy with spiritually charged NFTs</div>
+            </div>
+            
+            <div class="nav-item">
+                <div class="nav-icon">🃏</div>
+                <div class="nav-title">SluttyMemeCards<span class="external-link-icon"> ↗</span></div>
+                <div class="nav-desc">Collect, trade and share provocative blockchain meme cards</div>
+            </div>
+        </div>
+        
+        <button id="sound-toggle" class="sound-button">🔇 Sound Off</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const backgroundMusic = document.getElementById('background-music');
+            const soundToggle = document.getElementById('sound-toggle');
+            let musicPlaying = false;
+            
+            // Function to toggle music
+            function toggleMusic() {
+                if (musicPlaying) {
+                    backgroundMusic.pause();
+                    soundToggle.innerHTML = '🔇 Sound Off';
+                    musicPlaying = false;
+                } else {
+                    backgroundMusic.play().catch(error => {
+                        console.error("Audio playback failed:", error);
+                    });
+                    soundToggle.innerHTML = '🔊 Sound On';
+                    musicPlaying = true;
+                }
+            }
+            
+            // Add click event for sound toggle button
+            soundToggle.addEventListener('click', toggleMusic);
+            
+            // Allow user to start music with any click on the page (needed for autoplay restrictions)
+            document.body.addEventListener('click', function startMusicOnInteraction() {
+                if (!musicPlaying) {
+                    // Try to start music on first interaction (browsers often block autoplay)
+                    backgroundMusic.play().then(() => {
+                        soundToggle.innerHTML = '🔊 Sound On';
+                        musicPlaying = true;
+                    }).catch(error => {
+                        console.error("Audio playback failed on interaction:", error);
+                    });
+                    // Remove this listener after first click
+                    document.body.removeEventListener('click', startMusicOnInteraction);
+                }
+            });
+
+            // Ensure video plays
+            const video = document.getElementById('background-video');
+            video.play().catch(error => {
+                console.error("Video playback failed:", error);
+                // Try playing again on user interaction
+                document.body.addEventListener('click', () => {
+                    video.play().catch(e => console.error("Still failed to play:", e));
+                }, { once: true });
+            });
+            
+            // Custom positioning for mobile to ensure video fills screen properly
+            const handleMobileVideo = () => {
+                if (window.innerWidth <= 1024) {
+                    video.style.width = '100%';
+                    video.style.height = '100%';
+                    video.style.objectFit = 'cover';
+                    video.style.transformOrigin = 'center center';
+                    video.style.marginTop = '0';
+                    video.style.marginLeft = '0';
+                } else {
+                    video.style.transform = 'none';
+                    video.style.objectFit = 'contain';
+                    video.style.marginTop = '0';
+                    video.style.marginLeft = '0';
+                }
+            };
+            
+            // Apply video adjustments when video metadata is loaded
+            video.addEventListener('loadedmetadata', handleMobileVideo);
+            
+            // Update on window resize
+            window.addEventListener('resize', handleMobileVideo);
+            
+            // Add click events for navigation items
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            // CryptoButts item (first item)
+            navItems[0].addEventListener('click', () => {
+                // Open OpenSea collection in a new tab
+                window.open('https://opensea.io/collection/crypt0buttsgen', '_blank');
+            });
+            
+            // CryptoSluts item (second item)
+            navItems[1].addEventListener('click', () => {
+                // First show a special message about the collection
+                const makeOffer = confirm('Welcome to CryptoSluts! 💋\n\nThis exclusive collection isn\'t listed with a fixed price...\n\nYou\'ll need to make an offer the artist can\'t refuse!\n\nReady to shoot your shot?');
+                
+                // If they confirm, take them to OpenSea
+                if (makeOffer) {
+                    window.open('https://opensea.io/collection/cryptoslutsnft', '_blank');
+                }
+            });
+            
+            // Good Booty item (third item)
+            navItems[2].addEventListener('click', () => {
+                // Open OpenSea collection in a new tab
+                window.open('https://opensea.io/collection/good-booty', '_blank');
+            });
+            
+            // Why Were They There item (fourth item)
+            navItems[3].addEventListener('click', () => {
+                // Open OpenSea collection in a new tab
+                window.open('https://opensea.io/collection/why-were-they-there', '_blank');
+            });
+            
+            // Sensual Chakra item (fifth item)
+            navItems[4].addEventListener('click', () => {
+                // Open OpenSea collection in a new tab
+                window.open('https://opensea.io/collection/sensualchakras', '_blank');
+            });
+            
+            // SluttyMemeCards item (last item)
+            navItems[5].addEventListener('click', () => {
+                // Open OpenSea collection in a new tab
+                window.open('https://opensea.io/collection/slutty-meme-cards', '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
