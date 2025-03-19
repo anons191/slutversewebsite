@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Slutverse - Artist Statement</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles specific to artist statement page */
+        .statement-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 5px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .statement-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        .statement-text {
+            line-height: 1.8;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .statement-quote {
+            font-style: italic;
+            border-left: 3px solid rgba(255, 255, 255, 0.5);
+            padding-left: 20px;
+            margin: 30px 0;
+        }
+
+        .statement-list {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .statement-list li {
+            position: relative;
+            padding-left: 25px;
+            font-size: 1.3rem;
+        }
+
+        .statement-list li:before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .return-button {
+            margin-top: 30px;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .return-button:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .highlight {
+            color: #ff6b6b; /* Accent color */
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 40px;
+            overflow-y: auto;
+            justify-content: flex-start;
+            padding-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .statement-container {
+                padding: 25px;
+            }
+            
+            .statement-title {
+                font-size: 2.2rem;
+            }
+            
+            .statement-list li {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <!-- Background music player -->
+        <audio id="background-music" loop>
+            <source src="88N8 Digital Gold (Prod. Pyrodagod) Directed by Keem Ibarra.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+        <video autoplay muted loop playsinline id="background-video">
+            <source src="Btcroom .mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <div class="content">
+        <div class="statement-container">
+            <h1 class="statement-title">Artist Statement – The Slutverse</h1>
+            
+            <p class="statement-text statement-quote">
+                Art is <span class="highlight">resistance</span>. Art is <span class="highlight">autonomy</span>. Art is <span class="highlight">mine</span> to define.
+            </p>
+            
+            <p class="statement-text">
+                For as long as I've been creating, I've questioned the systems that dictate value, identity, and expression. The Slutverse is the embodiment of that defiance—an artistic world where crypto, counterculture, and raw self-expression collide.
+            </p>
+            
+            <p class="statement-text">
+                My work explores the blurred lines between sensuality and censorship, freedom and control, iconography and interpretation. I challenge the narratives that tell us who we should be, what we can create, and how we're allowed to exist.
+            </p>
+            
+            <p class="statement-text">
+                In an era where gatekeepers are being replaced by decentralized movements, my art embraces the power of self-custody—whether over wealth, creativity, or identity. The Slutverse is a space for those who reject the idea that value must be assigned by institutions, whether in finance, art, or life itself.
+            </p>
+            
+            <p class="statement-text">
+                Through traditional and digital mediums, provocative symbolism, and a refusal to be boxed in, my work is an open invitation:
+            </p>
+            
+            <ul class="statement-list">
+                <li>Question the rules</li>
+                <li>Challenge the narrative</li>
+                <li>Take what's yours</li>
+            </ul>
+            
+            <p class="statement-text statement-quote">
+                The Slutverse isn't just art—it's a <span class="highlight">movement</span>.
+            </p>
+            
+            <a href="index.html" class="return-button">Return Home</a>
+        </div>
+        
+        <button id="sound-toggle" class="sound-button">🔇 Sound Off</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const backgroundMusic = document.getElementById('background-music');
+            const soundToggle = document.getElementById('sound-toggle');
+            let musicPlaying = false;
+            
+            // Function to toggle music
+            function toggleMusic() {
+                if (musicPlaying) {
+                    backgroundMusic.pause();
+                    soundToggle.innerHTML = '🔇 Sound Off';
+                    musicPlaying = false;
+                } else {
+                    backgroundMusic.play().catch(error => {
+                        console.error("Audio playback failed:", error);
+                    });
+                    soundToggle.innerHTML = '🔊 Sound On';
+                    musicPlaying = true;
+                }
+            }
+            
+            // Add click event for sound toggle button
+            soundToggle.addEventListener('click', toggleMusic);
+            
+            // Allow user to start music with any click on the page (needed for autoplay restrictions)
+            document.body.addEventListener('click', function startMusicOnInteraction() {
+                if (!musicPlaying) {
+                    // Try to start music on first interaction (browsers often block autoplay)
+                    backgroundMusic.play().then(() => {
+                        soundToggle.innerHTML = '🔊 Sound On';
+                        musicPlaying = true;
+                    }).catch(error => {
+                        console.error("Audio playback failed on interaction:", error);
+                    });
+                    // Remove this listener after first click
+                    document.body.removeEventListener('click', startMusicOnInteraction);
+                }
+            });
+
+            // Ensure video plays
+            const video = document.getElementById('background-video');
+            video.play().catch(error => {
+                console.error("Video playback failed:", error);
+                // Try playing again on user interaction
+                document.body.addEventListener('click', () => {
+                    video.play().catch(e => console.error("Still failed to play:", e));
+                }, { once: true });
+            });
+            
+            // Custom positioning for mobile to ensure video fills screen properly
+            const handleMobileVideo = () => {
+                if (window.innerWidth <= 1024) {
+                    video.style.width = '100%';
+                    video.style.height = '100%';
+                    video.style.objectFit = 'cover';
+                    video.style.transformOrigin = 'center center';
+                    video.style.marginTop = '0';
+                    video.style.marginLeft = '0';
+                } else {
+                    video.style.transform = 'none';
+                    video.style.objectFit = 'contain';
+                    video.style.marginTop = '0';
+                    video.style.marginLeft = '0';
+                }
+            };
+            
+            // Apply video adjustments when video metadata is loaded
+            video.addEventListener('loadedmetadata', handleMobileVideo);
+            
+            // Update on window resize
+            window.addEventListener('resize', handleMobileVideo);
+        });
+    </script>
+</body>
+</html>

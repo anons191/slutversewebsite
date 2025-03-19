@@ -1,6 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const backgroundMusic = document.getElementById('background-music');
+    const soundToggle = document.getElementById('sound-toggle');
+    let musicPlaying = false;
+    
+    // Function to toggle music
+    function toggleMusic() {
+        if (musicPlaying) {
+            backgroundMusic.pause();
+            soundToggle.innerHTML = '🔇 Sound Off';
+            musicPlaying = false;
+        } else {
+            backgroundMusic.play().catch(error => {
+                console.error("Audio playback failed:", error);
+            });
+            soundToggle.innerHTML = '🔊 Sound On';
+            musicPlaying = true;
+        }
+    }
+    
+    // Add click event for sound toggle button
+    soundToggle.addEventListener('click', toggleMusic);
+    
+    // Allow user to start music with any click on the page (needed for autoplay restrictions)
+    document.body.addEventListener('click', function startMusicOnInteraction() {
+        if (!musicPlaying) {
+            // Try to start music on first interaction (browsers often block autoplay)
+            backgroundMusic.play().then(() => {
+                soundToggle.innerHTML = '🔊 Sound On';
+                musicPlaying = true;
+            }).catch(error => {
+                console.error("Audio playback failed on interaction:", error);
+            });
+            // Remove this listener after first click
+            document.body.removeEventListener('click', startMusicOnInteraction);
+        }
+    });
+
     const video = document.getElementById('background-video');
     const enterButton = document.getElementById('enter-button');
+    const artistStatementButton = document.getElementById('artist-statement');
     
     // Ensure video plays
     video.play().catch(error => {
@@ -40,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update on window resize
     window.addEventListener('resize', handleMobileVideo);
     
-    // Simple click event for the enter button
+    // Click event for the enter button
     enterButton.addEventListener('click', () => {
         // Fade out current content
         document.querySelector('.content').style.opacity = '0';
@@ -51,6 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Autonomy isn\'t given - it\'s taken. The slutverse is coming. Stay sharp. Stay curious. Stay free.');
             document.querySelector('.content').style.opacity = '1';
         }, 1000);
+    });
+    
+    // Click event for the artist statement button
+    artistStatementButton.addEventListener('click', () => {
+        // Navigate to the artist statement page
+        window.location.href = 'artist-statement.html';
     });
     
     // Add a subtle parallax effect on mouse movement for desktop only

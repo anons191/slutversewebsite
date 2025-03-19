@@ -8,6 +8,11 @@
 </head>
 <body>
     <div class="video-container">
+        <!-- Background music player -->
+        <audio id="background-music" loop>
+            <source src="88N8 Digital Gold (Prod. Pyrodagod) Directed by Keem Ibarra.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
         <video autoplay muted loop playsinline id="background-video">
             <source src="Btcroom .mp4" type="video/mp4">
             Your browser does not support the video tag.
@@ -17,7 +22,11 @@
     <div class="content">
         <h1>Welcome to the Slutverse</h1>
         <p>Your immersive experience begins here</p>
-        <button id="enter-button">Coming Soon</button>
+        <div class="button-container">
+            <button id="enter-button">Coming Soon</button>
+            <button id="artist-statement">Artist Statement</button>
+        </div>
+        <button id="sound-toggle" class="sound-button">🔇 Sound Off</button>
     </div>
 
     <script src="script.js"></script>
